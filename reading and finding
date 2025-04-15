@@ -1,0 +1,44 @@
+print('''
+Use the String Methods to find stuff
+
+  1) Can you find all the lines that start with "From:"
+  2) What about lines that start with "To:"
+  3) Find all the lines with email addresses
+    - How would you find them?
+    - Hint: split the line into a list of "words" then look for emails
+  4) Dates? Can you find the line with the oldest "Date"?
+    - Same Hint as 3
+''')
+
+# Open and read the file
+xfile = open('text-file-mail-very-short.txt')
+lines = [line.rstrip() for line in xfile]
+
+# Task 1: Find lines starting with "From:"
+print("\nLines starting with 'From:'")
+from_lines = [line for line in lines if line.startswith("From:")]
+print("\n".join(from_lines))
+
+# Task 2: Find lines starting with "To:"
+print("\nLines starting with 'To:'")
+to_lines = [line for line in lines if line.startswith("To:")]
+print("\n".join(to_lines))
+
+# Task 3: Find lines with email addresses
+print("\nLines with email addresses")
+import re
+email_lines = [line for line in lines if any(re.match(r"[^@]+@[^@]+\.[^@]+", word) for word in line.split())]
+print("\n".join(email_lines))
+
+# Task 4: Find the line with the oldest date
+print("\nLine with the oldest date")
+date_lines = [line for line in lines if line.startswith("Date:")]
+# Extract the date in 'YYYY-MM-DD' format and find the oldest
+import datetime
+def extract_date(line):
+    match = re.search(r"\d{4}-\d{2}-\d{2}", line)
+    return datetime.datetime.strptime(match.group(), "%Y-%m-%d") if match else None
+
+sorted_date_lines = sorted(date_lines, key=lambda l: extract_date(l))
+oldest_date_line = sorted_date_lines[0] if sorted_date_lines else None
+print(oldest_date_line)
