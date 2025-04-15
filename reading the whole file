@@ -1,0 +1,44 @@
+print('''
+This Lab is about opening a file handle, and 
+reading the whole file into a big string.
+
+You can read a file line by line, or put the 
+whole file in as a single string.  This is an example 
+of reading the whole file using the file method: 
+- file_handle.read() method
+      ''')
+
+# Challenge 1
+print('''
+Challenge # 1
+----------------------------------------------------
+Play with indexing the string to find the index 
+location for "red pill" and print the location index 
+and text "red pill" here:
+      
+Hint: You could find it by trial and error, or you 
+could use a string method like .find() 
+- https://www.w3schools.com/python/ref_string_find.asp
+---
+''')
+
+# Open the file and read its contents
+xfile = open('text-file-matrix.txt')
+whale = xfile.read()
+
+# Print the total number of characters in the file
+print('Number of Characters = ', len(whale))
+
+# Find the index of the phrase "red pill"
+phrase = "red pill"
+index = whale.find(phrase)
+
+# Print the index and the text at that location
+if index != -1:
+    print(f'Found "{phrase}" at index {index}')
+    print('Text at that index:', whale[index:index+len(phrase)])
+else:
+    print(f'The phrase "{phrase}" was not found in the file.')
+
+print('''
+-------------------------------------------------''')
