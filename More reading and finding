@@ -1,0 +1,51 @@
+import re
+
+print('''Open the text files, read in each line,
+find all the emails, add them to a new list,
+and print out a list of emails.
+
+# Steps:
+# 1 - Look at each line
+# 2 - If the line has an Email in it, extract it
+# 3 - Strip the email to ensure only the clean email is printed
+
+------------------------------------------------
+''')
+
+# Function to extract emails from a file
+def extract_emails(filename):
+    print(f'Processing file: {filename}')
+    try:
+        with open(filename, 'r') as xfile:
+            emails = []
+            for line in xfile:
+                # Split line into words and check for emails
+                words = line.split()
+                for word in words:
+                    if re.match(r"[^@]+@[^@]+\.[^@]+", word):
+                        emails.append(word.strip())
+            # Remove duplicates
+            emails = list(set(emails))
+            return emails
+    except FileNotFoundError:
+        print(f'Error: {filename} not found.')
+        return []
+
+# Specify the files to process
+files = [
+    'text-file-mail-very-short.txt',
+    'text-file-mail-short.txt',
+    'text-file-mail-long.txt'
+]
+
+# Process each file and print the emails
+for file in files:
+    emails = extract_emails(file)
+    if emails:
+        print(f'\nEmails found in {file}:')
+        for email in emails:
+            print(email)
+    else:
+        print(f'No emails found in {file}.')
+
+print('\n------------------------------------------------')
